@@ -1,0 +1,17 @@
+{
+	"name": "application-loopback",
+	"version": "1.0.0",
+	"devDependencies": {
+		"@biomejs/biome": "2.0.2",
+		"@types/bun": "latest",
+		"chalk": "^5.4.1"
+	},
+	"main": "src/index.ts",
+	"files": [
+		"bin/**/*",
+		"src/**/*"
+	],
+	"peerDependencies": {
+		"typescript": "^5"
+	}
+}
