@@ -14,6 +14,9 @@ A simple Node.js wrapper around native C++ binaries to list running application 
 - Pipe real-time audio data into your JavaScript/TypeScript app.
 
 
+https://github.com/user-attachments/assets/fc058596-6ea3-4ded-8065-aeb642c5a465
+
+
 ### 📦 Installation
 
 Install using your favourite package manager.
