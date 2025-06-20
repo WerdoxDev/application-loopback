@@ -1,11 +1,26 @@
 {
+	"version": "1.0.4",
 	"name": "application-loopback",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/WerdoxDev/application-loopback"
 	},
 	"license": "MIT",
-	"version": "1.0.2",
+	"keywords": [
+		"audio",
+		"audio-capture",
+		"loopback",
+		"wasapi",
+		"windows",
+		"windows-audio",
+		"pcm",
+		"per-process",
+		"nodejs",
+		"native",
+		"sound",
+		"child-process",
+		"low-level"
+	],
 	"devDependencies": {
 		"@biomejs/biome": "2.0.2",
 		"@types/bun": "latest",
