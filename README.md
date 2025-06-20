@@ -14,41 +14,51 @@ A simple Node.js wrapper around native C++ binaries to list running application 
 - Pipe real-time audio data into your JavaScript/TypeScript app.
 
 
-📦 Installation
+### 📦 Installation
 
 Install using your favourite package manager.
-```
+```sh
 npm install application-loopback
-//OR
+#OR
 bun install application-loopback
+#OR any package manager..
 ```
 
-🧠 Usage
+### 🧠 Usage
 1. Get Active Window Titles and Process IDs
 
-import { getActiveWindowProcessIds } from "your-package-name";
+```ts
+import { getActiveWindowProcessIds, type Window } from "application-loopback";
 
 const windows = await getActiveWindowProcessIds();
 
-windows.forEach(win => {
+windows.forEach((win: Window) => {
   console.log(`PID: ${win.processId}, Title: ${win.title}`);
 });
+```
 
 2. Start Capturing Audio from a Process
 
+```ts
 import { startAudioCapture } from "your-package-name";
 
 startAudioCapture("1234", {
-  onData: (chunk) => {
+  onData: (chunk: Uint8Array) => {
     console.log("Audio data:", chunk); // Uint8Array
   },
 });
+```
 
-    🧠 chunk is a raw PCM audio buffer. You can pipe it to a file, stream it, analyze it, etc.
+>    🧠 chunk is a raw PCM audio buffer. You can pipe it to a file, stream it, analyze it, etc.
 
 3. Stop Capturing Audio
 
+```ts
 import { stopAudioCapture } from "your-package-name";
+
+const processId = startAudioCapture("1234");
+//       ^
+//     "1234"
 
 const stopped = stopAudioCapture("1234");
 
@@ -57,19 +67,21 @@ if (stopped) {
 } else {
   console.log("No capture process found for that PID.");
 }
+```
 
-🪟 Why Native Binaries?
+### 🪟 Why and how?
 
-Capturing audio from other apps requires low-level access that Node.js alone can’t handle. This project uses small C++ utilities under the hood to:
+For my desktop application ([Huginn](https://github.com/WerdoxDev/Huginn)) I needed to capture an application's audio selectively to share in a call just like discord does.
 
-    Query visible window processes.
+I did a lot of tries with NAPI but windows WASPI was just not having it... That's when it hit me... I can compile a normal C++ application that does the audio capture and basically keep dumping the output to stdout and simply read it from nodejs. Yea that took a couple weeks to figure out 😶
 
-    Access per-process loopback audio streams.
+The C++ application is simply a stripped out version from a sample in microsoft's classic samples repo
+https://github.com/microsoft/Windows-classic-samples
 
-🧪 Example Use Cases
+### 🧪 Example Use Cases
 
-    Build a real-time audio visualizer for specific apps.
+- Build a real-time audio visualizer for specific apps.
 
-    Record browser or game audio selectively.
+- Record browser or game audio selectively.
 
-    Stream audio from only one process instead of the whole system.
+- Stream audio from only one process instead of the whole system.
