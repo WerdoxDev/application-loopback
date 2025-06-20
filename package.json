@@ -1,6 +1,11 @@
 {
 	"name": "application-loopback",
-	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/WerdoxDev/application-loopback"
+	},
+	"license": "MIT",
+	"version": "1.0.2",
 	"devDependencies": {
 		"@biomejs/biome": "2.0.2",
 		"@types/bun": "latest",
