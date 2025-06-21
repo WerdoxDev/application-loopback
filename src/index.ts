@@ -85,6 +85,7 @@ export function stopAudioCapture(processId: string): boolean {
 
    if (cppProcess) {
       cppProcess.kill()
+      spawnedAudioCaptures.delete(processId);
       return true;
    }
 
