@@ -6,10 +6,10 @@ if (platform() !== "win32" || arch() !== "x64") {
    throw new Error("This package is currently only available for Windows 10 x64 and later");
 }
 
-const loopbackBinaryPath = path.resolve(import.meta.dir, "../", "bin", `${platform()}-${arch()}`, "ApplicationLoopback.exe");
-const processListBinaryPath = path.resolve(import.meta.dir, "../", "bin", `${platform()}-${arch()}`, "ProcessList.exe");
+const loopbackBinaryPath = path.resolve(__dirname, "../", "bin", `${platform()}-${arch()}`, "ApplicationLoopback.exe");
+const processListBinaryPath = path.resolve(__dirname, "../", "bin", `${platform()}-${arch()}`, "ProcessList.exe");
 
-type Window = {
+export type Window = {
    processId: string;
    title: string;
 }
