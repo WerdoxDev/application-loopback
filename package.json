@@ -1,53 +1,54 @@
 {
-	"version": "1.0.5",
-	"name": "application-loopback",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/WerdoxDev/application-loopback"
-	},
-	"license": "MIT",
-	"scripts": {
-		"build": "bun run build:types && bun run build:esm && bun run build:cjs",
-		"build:cjs": "bun build src/index.ts --outfile dist/cjs/index.cjs --target node --format cjs",
-		"build:esm": "bun build src/index.ts --outfile dist/mjs/index.mjs --target node --format esm",
-		"build:types": "tsc --project tsconfig.json --emitDeclarationOnly"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "2.0.2",
-		"@types/bun": "latest",
-		"chalk": "^5.4.1"
-	},
-	"type": "module",
-	"main": "dist/cjs/index.cjs",
-	"module": "dist/esm/index.mjs",
-	"types": "dist/types/index.d.ts",
-	"files": [
-		"bin/**/*",
-		"src/**/*"
-	],
-	"exports": {
-		".": {
-			"import": "./dist/esm/index.mjs",
-			"require": "./dist/cjs/index.cjs",
-			"types": "./dist/types/index.d.ts"
-		}
-	},
-	"peerDependencies": {
-		"typescript": "^5"
-	},
-	"keywords": [
-		"audio",
-		"audio-capture",
-		"loopback",
-		"wasapi",
-		"windows",
-		"windows-audio",
-		"pcm",
-		"per-process",
-		"nodejs",
-		"native",
-		"sound",
-		"child-process",
-		"low-level"
-	]
+   "version": "1.1.1",
+   "name": "application-loopback",
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/WerdoxDev/application-loopback"
+   },
+   "license": "MIT",
+   "scripts": {
+      "build": "bun run build:types && bun run build:esm && bun run build:cjs",
+      "build:cjs": "bun build src/index.ts --outfile dist/cjs/index.cjs --target node --format cjs",
+      "build:esm": "bun build src/index.ts --outfile dist/mjs/index.mjs --target node --format esm",
+      "build:types": "tsc --project tsconfig.json --emitDeclarationOnly"
+   },
+   "devDependencies": {
+      "@biomejs/biome": "2.0.2",
+      "@types/bun": "latest",
+      "chalk": "^5.4.1"
+   },
+   "type": "module",
+   "main": "dist/cjs/index.cjs",
+   "module": "dist/esm/index.mjs",
+   "types": "dist/types/index.d.ts",
+   "files": [
+      "bin/**/*",
+      "src/**/*",
+      "dist/**/*"
+   ],
+   "exports": {
+      ".": {
+         "import": "./dist/esm/index.mjs",
+         "require": "./dist/cjs/index.cjs",
+         "types": "./dist/types/index.d.ts"
+      }
+   },
+   "peerDependencies": {
+      "typescript": "^5"
+   },
+   "keywords": [
+      "audio",
+      "audio-capture",
+      "loopback",
+      "wasapi",
+      "windows",
+      "windows-audio",
+      "pcm",
+      "per-process",
+      "nodejs",
+      "native",
+      "sound",
+      "child-process",
+      "low-level"
+   ]
 }
