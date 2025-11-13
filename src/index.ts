@@ -3,7 +3,7 @@ import { arch, platform } from "node:os";
 import path from "node:path";
 
 if (platform() !== "win32" || arch() !== "x64") {
-   throw new Error("This package is currently only available for Windows 10 x64 and later");
+   console.warn("This package is currently only available for Windows 10 x64 and later");
 }
 
 export type Window = {
