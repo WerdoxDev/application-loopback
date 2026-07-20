@@ -1,40 +1,62 @@
 {
-   "version": "1.2.6",
-   "name": "application-loopback",
+   "version": "1.2.7",
+   "name": "loopback-capture",
    "author": {
       "email": "matin.tat85@gmail.com",
       "name": "Matin Tat",
-      "url": "https://github.com/WerdoxDev/application-loopback"
+      "url": "https://github.com/WerdoxDev/loopback-capture"
    },
    "repository": {
       "type": "git",
-      "url": "https://github.com/WerdoxDev/application-loopback"
+      "url": "https://github.com/WerdoxDev/loopback-capture"
    },
    "license": "MIT",
+   "binary": {
+      "napi_versions": [
+         9
+      ]
+   },
    "scripts": {
-      "build": "tsdown",
-      "prepublish": "bun run build"
+      "compile": "cmake-js compile",
+      "clean": "cmake-js clean",
+      "build": "bun run compile && tsdown",
+      "prepublishOnly": "bun run build"
    },
    "devDependencies": {
-      "@biomejs/biome": "2.0.2",
-      "@types/bun": "latest",
-      "chalk": "^5.4.1",
-      "tsdown": "^0.12.9"
+      "@types/bindings": "^1.5.5",
+      "@types/bun": "1.3.14",
+      "chalk": "^5.6.2",
+      "oxfmt": "^0.59.0",
+      "tsdown": "^0.22.1",
+      "typescript": "^7.0.2"
    },
    "type": "module",
    "main": "dist/index.cjs",
-   "module": "dist/index.js",
-   "types": "dist/index.d.ts",
-   "files": [
-      "bin/**/*",
-      "dist/**/*"
-   ],
-   "peerDependencies": {
-      "typescript": "^5"
+   "module": "dist/index.mjs",
+   "types": "dist/index.d.cts",
+   "exports": {
+      ".": {
+         "import": {
+            "default": "./dist/index.mjs",
+            "types": "./dist/index.d.mts"
+         },
+         "require": {
+            "default": "./dist/index.cjs",
+            "types": "./dist/index.d.cts"
+         }
+      },
+      "./package.json": "./package.json"
    },
+   "files": [
+      "dist",
+      "build/Release/*.node",
+      "CMakeLists.txt",
+      "src"
+   ],
    "keywords": [
       "audio",
       "audio-capture",
+      "system-audio",
       "loopback",
       "wasapi",
       "windows",
@@ -45,6 +67,12 @@
       "native",
       "sound",
       "child-process",
-      "low-level"
-   ]
+      "low-level",
+      "napi"
+   ],
+   "dependencies": {
+      "bindings": "^1.5.0",
+      "cmake-js": "^8.0.0",
+      "node-addon-api": "^8.9.0"
+   }
 }
