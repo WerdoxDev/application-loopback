@@ -18,9 +18,9 @@ https://github.com/user-attachments/assets/fc058596-6ea3-4ded-8065-aeb642c5a465
 Install using your favorite package manager.
 
 ```sh
-npm install application-loopback
+npm install loopback-capture
 #OR
-bun install application-loopback
+bun install loopback-capture
 #OR any package manager..
 ```
 
