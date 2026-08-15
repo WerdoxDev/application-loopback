@@ -16,44 +16,29 @@ if(WIN32)
     FetchContent_MakeAvailable(wil)
 endif()
 
-# Collect common source files (headers and non-platform-specific cpp)
+# Headers only — safe to collect on every platform
 file(GLOB COMMON_SOURCES
    "src/*.h"
 )
 
-# Collect platform-independent cpp files (if you have any)
-# You might want to explicitly list these instead of using GLOB
-file(GLOB COMMON_CPP
-   "src/*.cpp"
-)
-
-# Platform-specific sources
+# All .cpp sources are Windows-only right now (WASAPI/COM), so only
+# collect and compile them when actually building on Windows.
 if(WIN32)
     file(GLOB PLATFORM_SOURCES
-        "src/*_win.cpp"
+        "src/*.cpp"
     )
-    # Exclude Linux files from the build
-    list(FILTER COMMON_CPP EXCLUDE REGEX ".*_linux\\.cpp$")
-elseif(UNIX)
-    find_package(OpenSSL REQUIRED)
-    file(GLOB PLATFORM_SOURCES
-        "src/*_linux.cpp"
-    )
-    # Exclude Windows files from the build
-    list(FILTER COMMON_CPP EXCLUDE REGEX ".*_win\\.cpp$")
+else()
+    set(PLATFORM_SOURCES "")
 endif()
 
-# Also exclude platform-specific files from COMMON_CPP
-list(FILTER COMMON_CPP EXCLUDE REGEX ".*_win\\.cpp$")
-list(FILTER COMMON_CPP EXCLUDE REGEX ".*_linux\\.cpp$")
-
-# Combine all sources
-set(SOURCE_FILES ${COMMON_SOURCES} ${COMMON_CPP} ${PLATFORM_SOURCES})
-
-
+set(SOURCE_FILES ${COMMON_SOURCES} ${PLATFORM_SOURCES})
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    PREFIX ""
+    SUFFIX ".node"
+    LINKER_LANGUAGE CXX
+)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_JS_INC}
@@ -63,10 +48,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_JS_LIB})
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE windowsapp.lib mfuuid.lib)
-endif()
-
-if(UNIX)
-   target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} OpenSSL::SSL OpenSSL::Crypto)
 endif()
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
